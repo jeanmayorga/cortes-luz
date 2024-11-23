@@ -5,11 +5,10 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import { formatRelative } from "date-fns";
 import { es } from "date-fns/locale";
-import { CircleX } from "lucide-react";
+// import { CircleX } from "lucide-react";
 
 export function SearchRecents() {
-  const { recentSearches, deleteRecentSearch, deleteAllRecentSearches } =
-    useRecentSearches();
+  const { recentSearches, deleteAllRecentSearches } = useRecentSearches();
 
   if (recentSearches.length === 0) return null;
 

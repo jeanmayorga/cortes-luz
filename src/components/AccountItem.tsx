@@ -28,7 +28,7 @@ export function AccountItem({ account }: Props) {
         address: account.address,
       });
     }
-  }, [account, criteria, code]);
+  }, [account, criteria, code, addRecentSearch]);
 
   if (!account) return null;
 

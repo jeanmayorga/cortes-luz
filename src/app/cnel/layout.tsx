@@ -17,7 +17,7 @@ export default function Layout({ children }: Props) {
           width={640}
           height={100}
           alt="Cnel banner"
-          className="rounded-3xl"
+          className="rounded-3xl h-[65px] md:h-auto"
         />
       </Link>
       <div className="text-center py-2">

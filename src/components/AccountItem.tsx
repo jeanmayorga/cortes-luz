@@ -37,7 +37,8 @@ export function AccountItem({ account }: Props) {
 
   return (
     <div key={account.account} className="p-4 text-sm">
-      <div className="flex justify-between items-center  mb-4">
+      <div className="md:flex md:justify-between md:items-center md:flex-row-reverse mb-4">
+        <ShareButton className="w-full md:w-auto mb-4 md:mb-0" />
         <div>
           <div className="text-lg leading-none">{account.address}</div>
           <div className="text-sm text-gray-500">
@@ -48,7 +49,6 @@ export function AccountItem({ account }: Props) {
             }).format(new Date(account.registeredAt))}
           </div>
         </div>
-        <ShareButton />
       </div>
       <div className="mb-4">
         <div className="font-semibold">Lugares:</div>

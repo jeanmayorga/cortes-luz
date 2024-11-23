@@ -1,10 +1,14 @@
 "use client";
 
-import { ShareIcon } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 
 import { Button } from "./ui/button";
+import { cn } from "@/lib/utils";
 
-export function ShareButton() {
+interface Props {
+  className?: string;
+}
+export function ShareButton({ className }: Props) {
   async function onShare() {
     const url = window.location.href;
 
@@ -18,12 +22,12 @@ export function ShareButton() {
 
   return (
     <Button
-      className="rounded-full"
+      className={cn("rounded-full", className)}
       size="sm"
       variant="outline"
       onClick={onShare}
     >
-      <ShareIcon className="mr-1 h-6 w-4 text-muted-foreground" />
+      <ExternalLink className="mr-1 h-6 w-4 text-muted-foreground" />
       Compartir
     </Button>
   );

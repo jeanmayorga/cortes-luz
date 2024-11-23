@@ -37,7 +37,12 @@ const cnelApi = `https://api.cnelep.gob.ec/servicios-linea/v1/notificaciones`;
 
 export async function getCnelLocations(seed: string) {
   console.log(`request to api CNEL -> ${seed}`);
-  const request = await fetch(`${cnelApi}/sector/${seed}`);
+  const request = await fetch(`${cnelApi}/sector/${seed}`, {
+    cache: "force-cache",
+    next: {
+      revalidate: 3600,
+    },
+  });
   const response = await request.text();
 
   return response;
@@ -48,7 +53,12 @@ export async function getCnelAccounts({ criteria, code }: Options) {
 
   console.log(`request to api CNEL -> ${code}/${criteria}`);
 
-  const request = await fetch(`${cnelApi}/consultar/${code}/${criteria}`);
+  const request = await fetch(`${cnelApi}/consultar/${code}/${criteria}`, {
+    cache: "force-cache",
+    next: {
+      revalidate: 3600,
+    },
+  });
   const response = (await request.json()) as CNELResponse;
 
   if (response.notificaciones === null) return [];

@@ -21,14 +21,14 @@ export function AccountItem({ account }: Props) {
   const code = searchParams.get("code") || "";
 
   useEffect(() => {
-    if (account) {
+    if (account.address && criteria && code) {
       addRecentSearch({
         criteria,
         code,
         address: account.address,
       });
     }
-  }, [account, criteria, code, addRecentSearch]);
+  }, [account.address, criteria, code, addRecentSearch]);
 
   if (!account) return null;
 

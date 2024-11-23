@@ -4,13 +4,22 @@ import { Suspense } from "react";
 import Image from "next/image";
 import { SearchRecents } from "@/components/SearchRecents";
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface Props {
   children: React.ReactNode;
 }
 export default function Layout({ children }: Props) {
   return (
-    <div className="md:py-48 py-8 md:px-0 px-4">
+    <div className="md:py-32 py-8 md:px-0 px-4">
+      <div className="md:w-[640px] w-full mx-auto mb-4">
+        <Link href="/">
+          <Button variant="outline" size="sm" className="rounded-full">
+            <ArrowLeft /> Ver otras opciones{" "}
+          </Button>
+        </Link>
+      </div>
       <Link href="/cnel" className="w-full flex justify-center mb-8">
         <Image
           src="/banner.jpg"
@@ -27,8 +36,6 @@ export default function Layout({ children }: Props) {
         <Suspense fallback={<SearchFormSkeleton />}>
           <SearchForm />
         </Suspense>
-        <SearchRecents />
-
         {children}
       </div>
     </div>

@@ -1,9 +1,8 @@
 import { Metadata } from "next";
-import { Criteria, getCnelAccounts } from "./actions";
+import { Criteria, getCnelAccounts } from "../actions";
 import { Suspense } from "react";
-import Loading from "./loading";
+import Loading from "../loading";
 import { AccountItem } from "@/components/AccountItem";
-import { SearchRecents } from "@/components/SearchRecents";
 
 export const metadata: Metadata = {
   title: "Consulta los cortes del servicio eléctrico CNEL",
@@ -35,7 +34,6 @@ async function Accounts({ criteria, code }: SearchParams) {
 
   return (
     <>
-      <SearchRecents />
       {accounts.map((account) => (
         <AccountItem key={account.account} account={account} />
       ))}

@@ -1,23 +1,38 @@
 "use client";
 
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Loader } from "lucide-react";
 
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
+import { getShareableUuid } from "@/app/actions";
+import { useState } from "react";
 
 interface Props {
   className?: string;
+  provider?: string;
+  criteria?: string;
+  code?: string;
 }
-export function ShareButton({ className }: Props) {
-  async function onShare() {
-    const url = window.location.href;
+export function ShareButton({ className, provider, criteria, code }: Props) {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  async function onShare() {
+    setIsLoading(true);
     try {
+      const uuid = await getShareableUuid({
+        provider,
+        criteria,
+        code,
+      });
+
+      const url = `https://www.cortesdeluz.com/${uuid}`;
       await navigator.share({ url });
       console.log("Shared!!");
     } catch (err) {
       console.log("Not Shared!!", err);
     }
+
+    setIsLoading(false);
   }
 
   return (
@@ -27,8 +42,16 @@ export function ShareButton({ className }: Props) {
       variant="outline"
       onClick={onShare}
     >
-      <ExternalLink className="mr-1 h-6 w-4 text-muted-foreground" />
-      Compartir
+      {isLoading ? (
+        <>
+          <Loader /> Compartiendo...
+        </>
+      ) : (
+        <>
+          <ExternalLink className="mr-1 h-6 w-4 text-muted-foreground" />
+          Compartir
+        </>
+      )}
     </Button>
   );
 }

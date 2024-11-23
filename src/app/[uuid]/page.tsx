@@ -8,7 +8,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, List } from "lucide-react";
-import Loading from "./loading";
 import { redirect } from "next/navigation";
 
 interface SearchParams {

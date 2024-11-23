@@ -14,6 +14,7 @@ export function SearchRecents() {
       <div className="flex gap-4 overflow-auto">
         {recentSearches.map((recentSearch) => (
           <Link
+            key={recentSearch.account}
             href={`?criteria=${recentSearch.criteria}&code=${recentSearch.code}`}
             className="px-4 py-3 rounded-xl bg-gray-50 border border-gray-100 hover:bg-slate-100 transition-all cursor-pointer select-none"
           >

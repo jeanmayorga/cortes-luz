@@ -35,14 +35,14 @@ async function AccountItem({ account }: AccountItemProps) {
       {Object.keys(powercutsByDate).map((date) => {
         const hours = powercutsByDate[date];
         return (
-          <div className="mb-2 last-of-type:mb-0">
+          <div key={date} className="mb-2 last-of-type:mb-0">
             <div className="flex items-center font-semi">
               <Calendar className="w-4 h-4 mr-1" />
               {date}
             </div>
             <div className="ml-5">
               {hours.map((hour) => (
-                <div className="flex">
+                <div className="flex" key={hour.date}>
                   <div className="w-16">de {hour.startTime}</div>
                   <div>a</div>
                   <div className="ml-2">{hour.endTime}</div>

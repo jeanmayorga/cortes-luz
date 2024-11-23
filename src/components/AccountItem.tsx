@@ -3,10 +3,10 @@ import lodash from "lodash";
 import { ShareButton } from "./ShareButton";
 import { Calendar } from "lucide-react";
 
-interface AccountItemProps {
+interface Props {
   account: Account;
 }
-async function AccountItem({ account }: AccountItemProps) {
+export function AccountItem({ account }: Props) {
   const powercutsByDate = lodash.groupBy(
     account.powercuts,
     (powercut) => powercut.dateString
@@ -52,21 +52,6 @@ async function AccountItem({ account }: AccountItemProps) {
           </div>
         );
       })}
-    </div>
-  );
-}
-
-interface Props {
-  accounts: Account[];
-}
-export function Results({ accounts }: Props) {
-  if (accounts.length === 0) return null;
-
-  return (
-    <div>
-      {accounts.map((account) => (
-        <AccountItem key={account.account} account={account} />
-      ))}
     </div>
   );
 }

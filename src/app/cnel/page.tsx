@@ -1,11 +1,11 @@
-import { SearchForm } from "@/components/SearchForm";
-import { Criteria, getCnelAccounts } from "./actions";
-import { Results } from "@/components/Results";
 import { Metadata } from "next";
-import { Account } from "../types";
+import { Criteria, getCnelAccounts } from "./actions";
+import { Suspense } from "react";
+import Loading from "./loading";
+import { AccountItem } from "@/components/AccountItem";
 
 export const metadata: Metadata = {
-  title: "Consulta los cortes del servicio eléctrico",
+  title: "Consulta los cortes del servicio eléctrico CNEL",
   description:
     "Sistema de consulta de programación de suspensión de servicio eléctrico",
 };
@@ -20,23 +20,24 @@ interface Props {
 }
 export default async function Home({ searchParams }: Props) {
   const { criteria, code } = await searchParams;
-
-  let accounts: Account[] = [];
-  if (criteria && code) {
-    accounts = await getCnelAccounts({ criteria, code });
-  }
-  await new Promise((r) => setTimeout(r, 2000));
+  const key = `${criteria}${code}`;
 
   return (
-    <div className="py-48">
-      <div className="text-center py-4">
-        Consulta de suspensión de servicio eléctrico (CNEL)
-      </div>
-      <div className="w-[640px] bg-white mx-auto border border-gray-200 shadow-sm rounded-3xl">
-        <SearchForm />
-        {/* <SearchRecents /> */}
-        <Results accounts={accounts} />
-      </div>
-    </div>
+    <Suspense key={key} fallback={<Loading />}>
+      <Accounts code={code} criteria={criteria} />
+    </Suspense>
+  );
+}
+
+async function Accounts({ criteria, code }: SearchParams) {
+  await new Promise((r) => setTimeout(r, 2000));
+  const accounts = await getCnelAccounts({ criteria, code });
+
+  return (
+    <>
+      {accounts.map((account) => (
+        <AccountItem key={account.account} account={account} />
+      ))}
+    </>
   );
 }

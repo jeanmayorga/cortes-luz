@@ -44,6 +44,8 @@ export async function getCnelLocations(seed: string) {
 }
 
 export async function getCnelAccounts({ criteria, code }: Options) {
+  if (!criteria || !code) return [];
+
   console.log(`request to api CNEL -> ${code}/${criteria}`);
 
   const request = await fetch(`${cnelApi}/consultar/${code}/${criteria}`);

@@ -3,7 +3,7 @@ import { SearchFormSkeleton } from "@/components/SearchFormSkeleton";
 import { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { List } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface Props {
@@ -15,22 +15,23 @@ export default function Layout({ children }: Props) {
       <div className="md:w-[640px] w-full mx-auto mb-4">
         <Link href="/">
           <Button variant="outline" size="sm" className="rounded-full">
-            <ArrowLeft /> Ver otras opciones{" "}
+            <List />
+            Ver otros servicios eléctricos
           </Button>
         </Link>
       </div>
-      <Link href="/cnel" className="w-full flex justify-center mb-8">
+      <div className="text-center py-2">
+        Consulta de suspensión de servicio eléctrico (CNEL)
+      </div>
+      <Link href="/cnel" className="w-full flex justify-center mb-4">
         <Image
           src="/banner.jpg"
           width={640}
           height={100}
           alt="Cnel banner"
-          className="rounded-3xl h-[65px] md:h-auto"
+          className="rounded-3xl"
         />
       </Link>
-      <div className="text-center py-2">
-        Consulta de suspensión de servicio eléctrico (CNEL)
-      </div>
       <div className="md:w-[640px] w-full bg-white mx-auto border border-gray-200 shadow-sm rounded-3xl">
         <Suspense fallback={<SearchFormSkeleton />}>
           <SearchForm />

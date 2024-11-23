@@ -1,4 +1,3 @@
-import { ShareButton } from "@/components/ShareButton";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Calendar } from "lucide-react";
 
@@ -11,7 +10,6 @@ export default function Loading() {
 
           <Skeleton className="w-[400px] h-[12px] rounded-full mb-[3px]" />
         </div>
-        <ShareButton />
       </div>
       <div className="mb-4">
         <div className="font-semibold mb-1">Lugares:</div>

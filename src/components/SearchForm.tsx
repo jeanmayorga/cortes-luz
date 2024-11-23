@@ -21,7 +21,7 @@ function Submit() {
     <Button
       type="submit"
       disabled={status.pending}
-      className="col-span-2 rounded-xl"
+      className="md:col-span-2 col-span-12 rounded-xl"
     >
       {status.pending ? <Loader /> : <Search />}
       {status.pending ? "" : "Buscar"}
@@ -38,7 +38,7 @@ export function SearchForm() {
   return (
     <div className="last-of-type:border-b-0 border-b">
       <Form action="/cnel" className="p-4 grid grid-cols-12 gap-2">
-        <div className="col-span-4">
+        <div className="md:col-span-4 col-span-6">
           <Select name="criteria" required defaultValue={criteria}>
             <SelectTrigger>
               <SelectValue placeholder="Código" />
@@ -53,7 +53,7 @@ export function SearchForm() {
           </Select>
         </div>
 
-        <div className="col-span-6">
+        <div className="md:col-span-6 col-span-6">
           <Input
             placeholder="000000000000"
             defaultValue={code}

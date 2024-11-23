@@ -4,6 +4,7 @@ export interface Powercut {
   dateString: string;
   startTime: string;
   endTime: string;
+  registeredAt: string;
 }
 
 export interface Account {

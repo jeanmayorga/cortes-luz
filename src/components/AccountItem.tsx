@@ -7,6 +7,8 @@ import { Calendar } from "lucide-react";
 import { useRecentSearches } from "@/hooks/useRecentSearches";
 import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
 
 interface Props {
   account: Account;
@@ -35,6 +37,11 @@ export function AccountItem({ account }: Props) {
     (powercut) => powercut.dateString
   );
 
+  const powercuts = account.powercuts;
+  const lastPowercut = powercuts?.[powercuts.length - 1];
+  const lastPowercutRegisteredAt =
+    lastPowercut?.registeredAt || new Date().toISOString();
+
   return (
     <div key={account.account} className="p-4 text-sm">
       <div className="md:flex md:justify-between md:items-center md:flex-row-reverse mb-4">
@@ -43,10 +50,9 @@ export function AccountItem({ account }: Props) {
           <div className="text-lg leading-none">{account.address}</div>
           <div className="text-sm text-gray-500">
             Actualizado el{" "}
-            {new Intl.DateTimeFormat("es-EC", {
-              dateStyle: "full",
-              timeStyle: "long",
-            }).format(new Date(account.registeredAt))}
+            {format(lastPowercutRegisteredAt, "EEEE dd/MM/yyyy, hh:mm:ss a", {
+              locale: es,
+            })}
           </div>
         </div>
       </div>

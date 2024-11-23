@@ -54,10 +54,10 @@ export async function getCnelAccounts({ criteria, code }: Options) {
   console.log(`request to api CNEL -> ${code}/${criteria}`);
 
   const request = await fetch(`${cnelApi}/consultar/${code}/${criteria}`, {
-    cache: "force-cache",
-    next: {
-      revalidate: 3600,
-    },
+    // cache: "force-cache",
+    // next: {
+    //   revalidate: 3600,
+    // },
   });
   const response = (await request.json()) as CNELResponse;
 
@@ -72,6 +72,7 @@ export async function getCnelAccounts({ criteria, code }: Options) {
       dateString: dp.fechaCorte,
       startTime: dp.horaDesde,
       endTime: dp.horaHasta,
+      registeredAt: dp.fechaRegistro,
     }));
 
     const locations = await getCnelLocations(notification.alimentador);

@@ -1,12 +1,35 @@
+"use client";
+
 import { Account } from "@/app/types";
 import lodash from "lodash";
 import { ShareButton } from "./ShareButton";
 import { Calendar } from "lucide-react";
+import { useRecentSearches } from "@/hooks/useRecentSearches";
+import { useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
 interface Props {
   account: Account;
 }
 export function AccountItem({ account }: Props) {
+  const searchParams = useSearchParams();
+  const { addRecentSearch } = useRecentSearches();
+
+  const criteria = searchParams.get("criteria") || "CUENTA_CONTRATO";
+  const code = searchParams.get("code") || "";
+
+  useEffect(() => {
+    if (account) {
+      addRecentSearch({
+        criteria,
+        code,
+        address: account.address,
+      });
+    }
+  }, [account, criteria, code]);
+
+  if (!account) return null;
+
   const powercutsByDate = lodash.groupBy(
     account.powercuts,
     (powercut) => powercut.dateString

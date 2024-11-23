@@ -2,6 +2,8 @@ import { SearchForm } from "@/components/SearchForm";
 import { SearchFormSkeleton } from "@/components/SearchFormSkeleton";
 import { Suspense } from "react";
 import Image from "next/image";
+import { SearchRecents } from "@/components/SearchRecents";
+import Link from "next/link";
 
 interface Props {
   children: React.ReactNode;
@@ -9,7 +11,7 @@ interface Props {
 export default function Layout({ children }: Props) {
   return (
     <div className="md:py-48 py-8 md:px-0 px-4">
-      <div className="w-full flex justify-center mb-8">
+      <Link href="/cnel" className="w-full flex justify-center mb-8">
         <Image
           src="/banner.jpg"
           width={640}
@@ -17,7 +19,7 @@ export default function Layout({ children }: Props) {
           alt="Cnel banner"
           className="rounded-3xl"
         />
-      </div>
+      </Link>
       <div className="text-center py-2">
         Consulta de suspensión de servicio eléctrico (CNEL)
       </div>
@@ -25,7 +27,7 @@ export default function Layout({ children }: Props) {
         <Suspense fallback={<SearchFormSkeleton />}>
           <SearchForm />
         </Suspense>
-        {/* <SearchRecents /> */}
+        <SearchRecents />
 
         {children}
       </div>

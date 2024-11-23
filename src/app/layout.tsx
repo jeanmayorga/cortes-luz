@@ -38,7 +38,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={poppins.className}>{children}</body>
+      <body className={poppins.className}>
+        <div className="md:pt-24 py-8 md:px-0 px-4">{children}</div>
+      </body>
       <GoogleAnalytics gaId="AW-728848373" />
       <GoogleTagManager gtmId="AW-728848373" />
     </html>

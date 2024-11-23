@@ -6,29 +6,39 @@ import { ShareButton } from "./ShareButton";
 import { Calendar } from "lucide-react";
 import { useRecentSearches } from "@/hooks/useRecentSearches";
 import { useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
 interface Props {
   account: Account;
+  provider: string;
 }
-export function AccountItem({ account }: Props) {
+export function AccountItem({ account, provider }: Props) {
   const searchParams = useSearchParams();
+  const params = useParams();
   const { addRecentSearch } = useRecentSearches();
 
+  const uuid = params.uuid as string;
   const criteria = searchParams.get("criteria") || "CUENTA_CONTRATO";
   const code = searchParams.get("code") || "";
 
   useEffect(() => {
-    if (account.address && criteria && code) {
+    if (uuid) {
+      addRecentSearch({
+        provider,
+        uuid,
+        address: account.address,
+      });
+    } else if (account.address && criteria && code) {
       addRecentSearch({
         criteria,
         code,
+        provider,
         address: account.address,
       });
     }
-  }, [account.address, criteria, code, addRecentSearch]);
+  }, [uuid, provider, criteria, code, account.address, addRecentSearch]);
 
   if (!account) return null;
 

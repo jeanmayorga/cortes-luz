@@ -29,7 +29,11 @@ export function SearchRecents() {
         {recentSearches.map((recentSearch) => (
           <Link
             key={recentSearch.createdAt}
-            href={`?criteria=${recentSearch.criteria}&code=${recentSearch.code}`}
+            href={
+              recentSearch.uuid
+                ? `/${recentSearch.uuid}`
+                : `/${recentSearch.provider}?criteria=${recentSearch.criteria}&code=${recentSearch.code}`
+            }
             className="px-4 py-3 rounded-xl bg-gray-50 border border-gray-100 hover:bg-slate-100 transition-all cursor-pointer select-none relative"
           >
             <div className="text-xs text-gray-400 leading-none mb-4">
@@ -37,13 +41,24 @@ export function SearchRecents() {
                 locale: es,
               })}
             </div>
+            <div className="text-sm">
+              {recentSearch.provider?.toUpperCase()}
+            </div>
             <div className="whitespace-nowrap leading-none">
               {recentSearch.address}
             </div>
-            <div className="">
-              <div className="text-xs">{recentSearch.criteria}</div>
-              <div className="text-xs text-gray-400">{recentSearch.code}</div>
-            </div>
+            {recentSearch.criteria && recentSearch.code && (
+              <>
+                <div className="text-xs text-gray-400">
+                  {recentSearch.criteria}
+                </div>
+                <div className="text-xs text-gray-400">{recentSearch.code}</div>
+              </>
+            )}
+            {recentSearch.uuid && (
+              <div className="text-xs text-gray-400">Compartido</div>
+            )}
+
             {/* <div
               className="absolute top-2 right-2 text-gray-400 rounded-full w-4 h-4"
               onClick={() => deleteRecentSearch(recentSearch.id)}

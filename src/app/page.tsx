@@ -4,7 +4,7 @@ import { ExternalLink } from "lucide-react";
 
 export default async function Home() {
   return (
-    <div className="py-48 flex items-center justify-center">
+    <div className="flex items-center justify-center">
       <div>
         <div className="font-semibold mb-4">
           Tenemos estas opciones disponibles:

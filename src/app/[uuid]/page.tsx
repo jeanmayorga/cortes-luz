@@ -9,12 +9,6 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, List } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "Consulta los cortes del servicio eléctrico CNEL",
-  description:
-    "Sistema de consulta de programación de suspensión de servicio eléctrico",
-};
-
 interface SearchParams {
   criteria: Criteria;
   code: string;
@@ -26,13 +20,38 @@ interface Params {
 interface Props {
   params: Promise<Params>;
 }
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { uuid } = await params;
+  const data = await getDataFromShareableUuid(uuid);
+  const accounts = await getCnelAccounts({
+    criteria: data.criteria,
+    code: data.code,
+  });
+  const account = accounts[0];
+
+  if (account) {
+    return {
+      title: `Cortes en ${
+        account.address
+      }  del servicio eléctrico ${data.provider.toUpperCase()}`,
+      description: `Cortes del servicio eléctrico en ${account.locations}`,
+    };
+  }
+
+  return {
+    title: "Consulta los cortes del servicio eléctrico.",
+    description:
+      "Sistema de consulta de programación de suspensión de servicio eléctrico",
+  };
+}
 export default async function Page({ params }: Props) {
   const { uuid } = await params;
   const data = await getDataFromShareableUuid(uuid);
   const key = `${data.criteria}${data.code}`;
 
   return (
-    <div className="md:py-32 py-8 md:px-0 px-4">
+    <>
       <div className="md:w-[640px] w-full mx-auto mb-4">
         <Link href="/">
           <Button variant="outline" size="sm" className="rounded-full">
@@ -70,7 +89,7 @@ export default async function Page({ params }: Props) {
           <Accounts code={data.code} criteria={data.criteria} />
         </Suspense>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -80,7 +99,7 @@ async function Accounts({ criteria, code }: SearchParams) {
   return (
     <>
       {accounts.map((account) => (
-        <AccountItem key={account.account} account={account} />
+        <AccountItem key={account.account} account={account} provider="cnel" />
       ))}
     </>
   );

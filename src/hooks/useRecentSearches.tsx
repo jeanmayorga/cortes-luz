@@ -2,15 +2,19 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
 export interface RecentSearchDTO {
-  criteria: string;
-  code: string;
+  uuid?: string;
+  criteria?: string;
+  code?: string;
+  provider: string;
   address: string;
 }
 
 export interface RecentSearch {
   id: string;
-  criteria: string;
-  code: string;
+  uuid?: string;
+  criteria?: string;
+  code?: string;
+  provider: string;
   address: string;
   createdAt: string;
 }
@@ -36,8 +40,9 @@ export const useRecentSearches = create<State>()(
         };
         const recentSearchExists = lastRecentSearches.find(
           (rs) =>
-            rs.code === recentSearch.code &&
-            rs.criteria === recentSearch.criteria
+            (rs.code === recentSearch.code &&
+              rs.criteria === recentSearch.criteria) ||
+            rs.uuid === recentSearch.uuid
         );
         if (!recentSearchExists) {
           const newRecentSearches = [newRecentSearch, ...lastRecentSearches];
@@ -55,7 +60,7 @@ export const useRecentSearches = create<State>()(
     }),
     {
       name: "recent-searches",
-      storage: createJSONStorage(() => sessionStorage),
+      storage: createJSONStorage(() => localStorage),
     }
   )
 );

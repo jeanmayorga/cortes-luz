@@ -34,14 +34,14 @@ export function SearchRecents() {
                 ? `/${recentSearch.uuid}`
                 : `/${recentSearch.provider}?criteria=${recentSearch.criteria}&code=${recentSearch.code}`
             }
-            className="px-4 py-3 rounded-xl bg-gray-50 border border-gray-100 hover:bg-slate-100 transition-all cursor-pointer select-none relative"
+            className="px-4 py-3 rounded-xl bg-gray-50 border border-gray-100 hover:bg-slate-100 transition-all cursor-pointer select-none relative min-w-44"
           >
             <div className="text-xs text-gray-400 leading-none mb-4">
               {formatRelative(recentSearch.createdAt, new Date(), {
                 locale: es,
               })}
             </div>
-            <div className="text-sm">
+            <div className="text-xs text-gray-500">
               {recentSearch.provider?.toUpperCase()}
             </div>
             <div className="whitespace-nowrap leading-none">

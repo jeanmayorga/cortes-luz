@@ -22,11 +22,11 @@ export default function Layout({ children }: Props) {
         </Link>
       </div>
       <div className="text-center py-2">
-        Consulta de suspensión de servicio eléctrico (CNEL)
+        Consulta de suspensión de servicio eléctrico (EEASA)
       </div>
-      <Link href="/cnel" className="w-full flex justify-center mb-4">
+      <Link href="/eeasa" className="w-full flex justify-center mb-4">
         <Image
-          src="/banner.jpg"
+          src="/banner-eaasa.png"
           width={640}
           height={100}
           alt="Cnel banner"
@@ -35,7 +35,7 @@ export default function Layout({ children }: Props) {
       </Link>
       <div className="md:w-[640px] w-full bg-white mx-auto border border-gray-200 shadow-sm rounded-3xl">
         <Suspense fallback={<SearchFormSkeleton />}>
-          <SearchForm provider="cnel" />
+          <SearchForm provider="eeasa" />
         </Suspense>
         <SearchRecents />
         {children}

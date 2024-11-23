@@ -31,6 +31,7 @@ export function AccountItem({ account, provider }: Props) {
         address: account.address,
       });
     } else if (account.address && criteria && code) {
+      console.log("addRecentSearch", account.address, criteria, code);
       addRecentSearch({
         criteria,
         code,

@@ -10,10 +10,6 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, List } from "lucide-react";
 import { redirect } from "next/navigation";
 
-interface SearchParams {
-  criteria: Criteria;
-  code: string;
-}
 interface Params {
   uuid: string;
 }
@@ -89,20 +85,36 @@ export default async function Page({ params }: Props) {
           </Link>
         </div>
         <Suspense key={key} fallback={<LoadingCnel />}>
-          <Accounts code={data.code} criteria={data.criteria} />
+          <Accounts
+            code={data.code}
+            criteria={data.criteria}
+            provider={data.provider}
+          />
         </Suspense>
       </div>
     </>
   );
 }
 
-async function Accounts({ criteria, code }: SearchParams) {
+async function Accounts({
+  criteria,
+  code,
+  provider,
+}: {
+  criteria: Criteria;
+  code: string;
+  provider: string;
+}) {
   const accounts = await getCnelAccounts({ criteria, code });
 
   return (
     <>
       {accounts.map((account) => (
-        <AccountItem key={account.account} account={account} provider="cnel" />
+        <AccountItem
+          key={account.account}
+          account={account}
+          provider={provider}
+        />
       ))}
     </>
   );

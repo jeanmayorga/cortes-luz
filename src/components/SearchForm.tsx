@@ -38,7 +38,10 @@ function Submit() {
   );
 }
 
-export function SearchForm() {
+interface Props {
+  provider: string;
+}
+export function SearchForm({ provider }: Props) {
   const searchParams = useSearchParams();
 
   const criteria = searchParams.get("criteria") || "CUENTA_CONTRATO";
@@ -46,7 +49,7 @@ export function SearchForm() {
 
   return (
     <div className="last-of-type:border-b-0 border-b">
-      <Form action="/cnel" className="p-4 grid grid-cols-12 gap-2">
+      <Form action={`/${provider}`} className="p-4 grid grid-cols-12 gap-2">
         <div className="md:col-span-4 col-span-6">
           <Select name="criteria" required defaultValue={criteria}>
             <SelectTrigger>
@@ -55,9 +58,7 @@ export function SearchForm() {
             <SelectContent>
               <SelectItem value="CUEN">Codigo único (cuen)</SelectItem>
               <SelectItem value="CUENTA_CONTRATO">Cuenta contrato</SelectItem>
-              <SelectItem value="IDENTIFICACION">
-                Número de identificación
-              </SelectItem>
+              <SelectItem value="IDENTIFICACION">Número de cédula</SelectItem>
             </SelectContent>
           </Select>
         </div>

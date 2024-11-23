@@ -38,12 +38,21 @@ export const useRecentSearches = create<State>()(
           ...recentSearch,
           createdAt,
         };
-        const recentSearchExists = lastRecentSearches.find(
-          (rs) =>
-            (rs.code === recentSearch.code &&
-              rs.criteria === recentSearch.criteria) ||
-            rs.uuid === recentSearch.uuid
-        );
+        const recentSearchExists = lastRecentSearches.find((rs) => {
+          if (rs.uuid && rs.uuid === newRecentSearch.uuid) return rs;
+          if (rs.code && rs.criteria && rs.provider) {
+            if (
+              rs.code === newRecentSearch.code &&
+              rs.criteria === newRecentSearch.criteria &&
+              rs.provider === newRecentSearch.provider
+            ) {
+              return rs;
+            }
+          }
+
+          return undefined;
+        });
+
         if (!recentSearchExists) {
           const newRecentSearches = [newRecentSearch, ...lastRecentSearches];
           return set({ recentSearches: newRecentSearches });

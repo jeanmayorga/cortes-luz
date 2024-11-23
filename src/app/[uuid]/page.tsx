@@ -9,6 +9,8 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, List } from "lucide-react";
 import { redirect } from "next/navigation";
+import { Account } from "../types";
+import { getEeasaAccounts } from "../eeasa/actions";
 
 interface Params {
   uuid: string;
@@ -23,16 +25,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const data = await getDataFromShareableUuid(uuid);
 
   if (data) {
-    const accounts = await getCnelAccounts({
-      criteria: data.criteria,
-      code: data.code,
-    });
+    let accounts: Account[] = [];
+    if (data.provider === "cnel") {
+      accounts = await getCnelAccounts({
+        criteria: data.criteria,
+        code: data.code,
+      });
+    }
+    if (data.provider === "eeasa") {
+      accounts = await getEeasaAccounts({
+        criteria: data.criteria,
+        code: data.code,
+      });
+    }
     const account = accounts[0];
     return {
       title: `Cortes en ${
         account.address
       }  del servicio eléctrico ${data.provider.toUpperCase()}`,
-      description: `Cortes del servicio eléctrico en ${account.locations}`,
+      description: `Cortes del servicio eléctrico: ${account.locations}`,
     };
   }
 
@@ -75,6 +86,17 @@ export default async function Page({ params }: Props) {
           />
         </Link>
       )}
+      {data.provider === "eeasa" && (
+        <Link href="/eeasa" className="w-full flex justify-center mb-4">
+          <Image
+            src="/banner-eaasa.png"
+            width={640}
+            height={100}
+            alt="Cnel banner"
+            className="rounded-3xl"
+          />
+        </Link>
+      )}
       <div className="md:w-[640px] w-full bg-white mx-auto border border-gray-200 shadow-sm rounded-3xl">
         <div className="p-4 border-b-0 md:border-b border-dashed md:py-2:">
           <Link href={`/${data.provider}`}>
@@ -105,7 +127,19 @@ async function Accounts({
   code: string;
   provider: string;
 }) {
-  const accounts = await getCnelAccounts({ criteria, code });
+  let accounts: Account[] = [];
+  if (provider === "cnel") {
+    accounts = await getCnelAccounts({
+      criteria,
+      code,
+    });
+  }
+  if (provider === "eeasa") {
+    accounts = await getEeasaAccounts({
+      criteria,
+      code,
+    });
+  }
 
   return (
     <>

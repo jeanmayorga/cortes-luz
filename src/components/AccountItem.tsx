@@ -31,7 +31,6 @@ export function AccountItem({ account, provider }: Props) {
         address: account.address,
       });
     } else if (account.address && criteria && code) {
-      console.log("addRecentSearch", account.address, criteria, code);
       addRecentSearch({
         criteria,
         code,
@@ -58,7 +57,7 @@ export function AccountItem({ account, provider }: Props) {
       <div className="md:flex md:justify-between md:items-center md:flex-row-reverse mb-4">
         <ShareButton
           className="w-full md:w-auto mb-4 md:mb-0"
-          provider="cnel"
+          provider={provider}
           code={code}
           criteria={criteria}
         />

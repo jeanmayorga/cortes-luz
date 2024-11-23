@@ -53,7 +53,7 @@ export function AccountItem({ account, provider }: Props) {
     lastPowercut?.registeredAt || new Date().toISOString();
 
   return (
-    <div key={account.account} className="px-4 py-0 md:py-4 text-sm">
+    <div key={account.account} className="px-4 pt-0 md:pt-4 text-sm pb-4">
       <div className="md:flex md:justify-between md:items-center md:flex-row-reverse mb-4">
         <ShareButton
           className="w-full md:w-auto mb-4 md:mb-0"

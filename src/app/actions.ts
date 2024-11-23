@@ -35,7 +35,7 @@ export async function getDataFromShareableUuid(uuid: string) {
     .single();
 
   if (error) {
-    throw new Error(error.details);
+    return null;
   }
 
   interface Response {

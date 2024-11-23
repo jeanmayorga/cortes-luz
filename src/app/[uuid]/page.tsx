@@ -3,11 +3,13 @@ import { Suspense } from "react";
 import { AccountItem } from "@/components/AccountItem";
 import { getDataFromShareableUuid } from "@/app/actions";
 import { Criteria, getCnelAccounts } from "../cnel/actions";
-import Loading from "../cnel/loading";
+import LoadingCnel from "../cnel/loading";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, List } from "lucide-react";
+import Loading from "./loading";
+import { redirect } from "next/navigation";
 
 interface SearchParams {
   criteria: Criteria;
@@ -24,13 +26,13 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { uuid } = await params;
   const data = await getDataFromShareableUuid(uuid);
-  const accounts = await getCnelAccounts({
-    criteria: data.criteria,
-    code: data.code,
-  });
-  const account = accounts[0];
 
-  if (account) {
+  if (data) {
+    const accounts = await getCnelAccounts({
+      criteria: data.criteria,
+      code: data.code,
+    });
+    const account = accounts[0];
     return {
       title: `Cortes en ${
         account.address
@@ -48,6 +50,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Page({ params }: Props) {
   const { uuid } = await params;
   const data = await getDataFromShareableUuid(uuid);
+
+  if (!data) return redirect("/");
   const key = `${data.criteria}${data.code}`;
 
   return (
@@ -85,7 +89,7 @@ export default async function Page({ params }: Props) {
             </Button>
           </Link>
         </div>
-        <Suspense key={key} fallback={<Loading />}>
+        <Suspense key={key} fallback={<LoadingCnel />}>
           <Accounts code={data.code} criteria={data.criteria} />
         </Suspense>
       </div>

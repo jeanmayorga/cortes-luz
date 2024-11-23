@@ -60,11 +60,11 @@ export default async function Page({ params }: Props) {
           </Button>
         </Link>
       </div>
-      {data.provider === "cnel" && (
+      {/* {data.provider === "cnel" && (
         <div className="text-center py-2">
           Consulta de suspensión de servicio eléctrico (CNEL)
         </div>
-      )}
+      )} */}
       {data.provider === "cnel" && (
         <Link href="/cnel" className="w-full flex justify-center mb-4">
           <Image
@@ -72,14 +72,14 @@ export default async function Page({ params }: Props) {
             width={640}
             height={100}
             alt="Cnel banner"
-            className="rounded-3xl h-[65px] md:h-auto"
+            className="rounded-3xl"
           />
         </Link>
       )}
       <div className="md:w-[640px] w-full bg-white mx-auto border border-gray-200 shadow-sm rounded-3xl">
-        <div className="last-of-type:border-b-0 border-b px-4 py-2">
+        <div className="p-4 border-b-0 md:border-b border-dashed md:py-2:">
           <Link href={`/${data.provider}`}>
-            <Button className=" rounded-full" variant="outline">
+            <Button className="rounded-full w-full md:w-auto" variant="outline">
               <ArrowLeft />
               Consultar mi corte de luz
             </Button>

@@ -2,7 +2,6 @@ import { SearchForm } from "@/components/SearchForm";
 import { SearchFormSkeleton } from "@/components/SearchFormSkeleton";
 import { Suspense } from "react";
 import Image from "next/image";
-import { SearchRecents } from "@/components/SearchRecents";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";

@@ -17,9 +17,18 @@ import { Loader, Search } from "lucide-react";
 
 function Submit() {
   const status = useFormStatus();
+
+  function handleClick() {
+    window.gtag("event", "conversion", {
+      send_to: "AW-728848373/nTrCCLyS5O0ZEPWvxdsC",
+      criteria: status.data?.get("criteria"),
+      code: status.data?.get("code"),
+    });
+  }
   return (
     <Button
       type="submit"
+      onClick={handleClick}
       disabled={status.pending}
       className="md:col-span-2 col-span-12 rounded-xl"
     >

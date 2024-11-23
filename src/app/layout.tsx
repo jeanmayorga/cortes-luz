@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 
 import "./globals.css";
-import Script from "next/script";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -39,23 +39,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>{children}</body>
-
-      <Script
-        src="https://www.googletagmanager.com/gtag/js?id=AW-728848373"
-        strategy="afterInteractive"
-      />
-      <Script
-        id="google-analytics"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'AW-728848373');
-            `,
-        }}
-      />
+      <GoogleAnalytics gaId="AW-728848373" />
+      <GoogleTagManager gtmId="AW-728848373" />
     </html>
   );
 }

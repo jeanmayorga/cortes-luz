@@ -32,7 +32,7 @@ function Submit() {
 export function SearchForm() {
   const searchParams = useSearchParams();
 
-  const criteria = searchParams.get("criteria") || "CUEN";
+  const criteria = searchParams.get("criteria") || "CUENTA_CONTRATO";
   const code = searchParams.get("code") || undefined;
 
   return (

@@ -30,7 +30,6 @@ export default async function Home({ searchParams }: Props) {
 }
 
 async function Accounts({ criteria, code }: SearchParams) {
-  await new Promise((r) => setTimeout(r, 2000));
   const accounts = await getCnelAccounts({ criteria, code });
 
   return (

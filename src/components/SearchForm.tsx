@@ -21,8 +21,8 @@ function Submit() {
   function handleClick() {
     window.gtag("event", "conversion", {
       send_to: "AW-728848373/nTrCCLyS5O0ZEPWvxdsC",
-      criteria: status.data?.get("criteria"),
-      code: status.data?.get("code"),
+      criteria: status.data?.get("criteria")?.toString() || "",
+      code: status.data?.get("code")?.toString() || "",
     });
   }
   return (

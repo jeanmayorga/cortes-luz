@@ -1,6 +1,6 @@
 "use server";
 
-import { format } from "date-fns";
+import { format, toZonedTime } from "date-fns-tz";
 import { Account } from "../types";
 import { es } from "date-fns/locale";
 
@@ -61,16 +61,23 @@ export async function getEeasaAccounts({ criteria, code }: Options) {
       locations: `${response[0].direccion} ${response[0].nomAlim}`,
       registeredAt: new Date().toISOString(),
       powercuts: response.map((powercut) => {
+        const start = toZonedTime(
+          new Date(powercut.fechaIniSusp),
+          "America/Guayaquil"
+        );
+        const end = toZonedTime(
+          new Date(powercut.fechaFinSusp),
+          "America/Guayaquil"
+        );
+
         return {
           seed: powercut.codAlim,
-          date: powercut.fechaIniSusp,
-          dateString: format(
-            powercut.fechaIniSusp,
-            "eeee, dd 'de' MMMM 'de' yyyy",
-            { locale: es }
-          ),
-          startTime: format(powercut.fechaIniSusp, "HH:mm"),
-          endTime: format(powercut.fechaFinSusp, "HH:mm"),
+          date: start.toISOString(),
+          dateString: format(start, "eeee, dd 'de' MMMM 'de' yyyy", {
+            locale: es,
+          }),
+          startTime: format(start, "HH:mm"),
+          endTime: format(end, "HH:mm"),
           registeredAt: new Date().toISOString(),
         };
       }),

@@ -77,9 +77,7 @@ export async function getEeasaAccounts({ criteria, code }: Options) {
     },
   ];
 
-  console.log(
-    `request to api EEASA -> ${mapped[0].powercuts.length} accounts found.`
-  );
+  console.log(`request to api EEASA -> ${mapped.length} accounts found.`);
 
   return mapped;
 }

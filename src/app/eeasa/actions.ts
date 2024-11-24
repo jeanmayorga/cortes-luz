@@ -44,7 +44,7 @@ export async function getEeasaAccounts({ criteria, code }: Options) {
     },
     cache: "force-cache",
     next: {
-      revalidate: 3600,
+      revalidate: 60,
     },
   });
   const response = (await request.json()) as EEASAItem[];

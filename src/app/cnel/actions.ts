@@ -56,7 +56,7 @@ export async function getCnelAccounts({ criteria, code }: Options) {
   const request = await fetch(`${cnelApi}/consultar/${code}/${criteria}`, {
     cache: "force-cache",
     next: {
-      revalidate: 3600,
+      revalidate: 60,
     },
   });
   const response = (await request.json()) as CNELResponse;

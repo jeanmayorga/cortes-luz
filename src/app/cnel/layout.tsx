@@ -21,9 +21,6 @@ export default function Layout({ children }: Props) {
           </Button>
         </Link>
       </div>
-      <div className="text-center py-2">
-        Consulta de suspensión de servicio eléctrico (CNEL)
-      </div>
       <Link href="/cnel" className="w-full flex justify-center mb-4">
         <Image
           src="/banner.jpg"

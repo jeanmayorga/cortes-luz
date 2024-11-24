@@ -42,10 +42,10 @@ export async function getEeasaAccounts({ criteria, code }: Options) {
     headers: {
       token: "TWlFZUFzQV86TUllZWFzYS4yMDIxXy4h",
     },
-    // cache: "force-cache",
-    // next: {
-    //   revalidate: 60,
-    // },
+    cache: "force-cache",
+    next: {
+      revalidate: 60,
+    },
   });
   const response = (await request.json()) as EEASAItem[];
 

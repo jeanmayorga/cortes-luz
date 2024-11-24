@@ -10,16 +10,13 @@ export default async function Home() {
           Tenemos estas opciones disponibles:
         </div>
         <div>
-          <Link href="/cnel" className="block mb-4">
-            <Button variant="default">
-              <ExternalLink /> Corporación Nacional de Electricidad (CNEL EP)
-            </Button>
+          <Link href="/cnel" className="flex items-center mb-4 underline">
+            <ExternalLink className="w-4 h-4 mr-2" /> Corporación Nacional de
+            Electricidad (CNEL EP)
           </Link>
-          <Link href="/eeasa" className="block">
-            <Button variant="default">
-              <ExternalLink /> Empresa Eléctrica Ambato Regional Centro Norte
-              S.A. (EEASA)
-            </Button>
+          <Link href="/eeasa" className="flex items-center underline">
+            <ExternalLink className="w-4 h-4 mr-2" /> Empresa Eléctrica Ambato
+            Regional Centro Norte S.A. (EEASA)
           </Link>
         </div>
       </div>

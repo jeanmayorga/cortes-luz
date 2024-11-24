@@ -9,6 +9,8 @@ import { useEffect } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { cn } from "@/lib/utils";
+import { Badge } from "./ui/badge";
 
 interface Props {
   account: Account;
@@ -76,15 +78,26 @@ export function AccountItem({ account, provider }: Props) {
         {account.locations}
       </div>
       <div className="font-semibold">Horario:</div>
-      {Object.keys(powercutsByDate).map((date) => {
+      {Object.keys(powercutsByDate).map((date, index) => {
         const hours = powercutsByDate[date];
+        const today = index === 0;
         return (
           <div key={date} className="mb-2 last-of-type:mb-0">
-            <div className="flex items-center font-semi">
+            <div
+              className={cn(
+                `flex items-center font-semi`,
+                today && "font-bold"
+              )}
+            >
               <Calendar className="w-4 h-4 mr-1" />
-              {date}
+              {date}{" "}
+              {today && (
+                <Badge variant="default" className="ml-2 bg-black">
+                  Hoy
+                </Badge>
+              )}
             </div>
-            <div className="ml-5">
+            <div className={cn("ml-5", today && "font-bold")}>
               {hours.map((hour) => (
                 <div className="flex" key={hour.date}>
                   <div className="w-16">de {hour.startTime}</div>

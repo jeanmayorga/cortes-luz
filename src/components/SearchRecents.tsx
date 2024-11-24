@@ -47,13 +47,8 @@ export function SearchRecents() {
             <div className="whitespace-nowrap leading-none">
               {recentSearch.address}
             </div>
-            {recentSearch.criteria && recentSearch.code && (
-              <>
-                <div className="text-xs text-gray-400">
-                  {recentSearch.criteria}
-                </div>
-                <div className="text-xs text-gray-400">{recentSearch.code}</div>
-              </>
+            {recentSearch.code && (
+              <div className="text-xs text-gray-400">{recentSearch.code}</div>
             )}
             {recentSearch.uuid && (
               <div className="text-xs text-gray-400">Compartido</div>

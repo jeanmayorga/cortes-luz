@@ -11,6 +11,9 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { cn } from "@/lib/utils";
 import { Badge } from "./ui/badge";
+import { Button } from "./ui/button";
+import { getEeasaAccounts } from "@/app/eeasa/actions";
+import { Criteria } from "@/app/cnel/actions";
 
 interface Props {
   account: Account;
@@ -54,8 +57,21 @@ export function AccountItem({ account, provider }: Props) {
   const lastPowercutRegisteredAt =
     lastPowercut?.registeredAt || new Date().toISOString();
 
+  async function handlere() {
+    const result = await getEeasaAccounts({
+      criteria: criteria as Criteria,
+      code,
+    });
+    console.log(result);
+  }
+
   return (
     <div key={account.account} className="px-4 pt-0 md:pt-4 text-sm pb-4">
+      {provider === "eeasa" && (
+        <>
+          <Button onClick={handlere}>Hola</Button>
+        </>
+      )}
       <div className="md:flex md:justify-between md:items-center md:flex-row-reverse mb-4">
         <ShareButton
           className="w-full md:w-auto mb-4 md:mb-0"

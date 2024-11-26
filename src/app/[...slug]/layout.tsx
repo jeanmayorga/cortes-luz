@@ -37,7 +37,7 @@ export default async function Layout({ children, params }: Props) {
           </Button>
         </Link>
       </div>
-      <div className="md:w-[640px] w-full bg-white mx-auto border border-gray-200 shadow-sm md:rounded-3xl overflow-hidden">
+      <div className="md:w-[640px] w-full bg-white mx-auto border border-gray-200 shadow-sm md:rounded-3xl">
         <SearchBanner />
         <Tabs
           defaultValue="searchFormByAccount"

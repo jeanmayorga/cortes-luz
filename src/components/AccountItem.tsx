@@ -44,7 +44,7 @@ export function AccountItem({ account }: Props) {
         code,
       });
     }
-  }, [account.locations, provider, criteria, code, account.seed]);
+  }, [account.locations, provider, criteria, code]);
 
   if (!account) return null;
 

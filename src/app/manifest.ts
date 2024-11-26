@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Consulta los cortes del servicio eléctrico",
     short_name: "Cortes de luz",
     description:
-      "Sistema de consulta de programación de suspensión de servicio eléctrico",
+      "Consulta fácilmente la programación de suspensión del servicio eléctrico en tu área. Obtén información actualizada, fechas y horarios para estar preparado. ¡Accede ahora y planifica mejor tus actividades!",
     start_url: "/",
     display: "standalone",
     background_color: "#fff",

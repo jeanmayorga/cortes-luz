@@ -16,6 +16,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const accounts = await getAccounts({ provider, criteria, code });
   const account = accounts[0];
 
+  const keywords =
+    "Programación de suspensión eléctrica, Consulta de servicio eléctrico, Cortes de energía programados, Suspensión de electricidad, Horarios de cortes de luz, Fechas de suspensión de servicio eléctrico, Consulta de programación eléctrica, Cortes programados de luz, Información sobre cortes eléctricos, Sistema de consulta eléctrica, Servicio eléctrico en mi área, Programación de interrupción eléctrica, Planificación de cortes de luz, Fechas y horarios de cortes de electricidad, Consulta en línea de cortes eléctricos, Suspensión del servicio energético, Cortes eléctricos programados por región, Consulta de apagones, Avisos de cortes eléctricos, Interrupciones eléctricas planificadas, ¿Cuándo se suspenderá el servicio eléctrico?, Cortes programados de electricidad hoy, Cómo consultar cortes de luz, Fechas de interrupciones eléctricas en mi zona, Planificación de cortes de energía";
+
   if (account) {
     const title = account.address.replace("...", "");
 
@@ -34,6 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         ""
       )} | Cortes del servicio eléctrico`,
       description: account.locations,
+      keywords,
       robots: "index, follow",
       openGraph: {
         images,
@@ -54,7 +58,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
       title: `${provider.toUpperCase()} | Consulta los cortes del servicio eléctrico.`,
       description:
-        "Sistema de consulta de programación de suspensión de servicio eléctrico",
+        "Consulta fácilmente la programación de suspensión del servicio eléctrico en tu área. Obtén información actualizada, fechas y horarios para estar preparado. ¡Accede ahora y planifica mejor tus actividades!",
+
+      keywords,
       robots: "index, follow",
       openGraph: {
         images,
@@ -65,8 +71,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: "Consulta los cortes del servicio eléctrico.",
+    keywords,
     description:
-      "Sistema de consulta de programación de suspensión de servicio eléctrico",
+      "Consulta fácilmente la programación de suspensión del servicio eléctrico en tu área. Obtén información actualizada, fechas y horarios para estar preparado. ¡Accede ahora y planifica mejor tus actividades!",
   };
 }
 

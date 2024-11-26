@@ -14,6 +14,7 @@ export function SearchBanner() {
   if (provider === "cnel") {
     return (
       <div className="p-4 border-b">
+        <h1 className="sr-only">{provider}</h1>
         <Link href="/cnel" className={classNames}>
           <Image src="/banner.jpg" fill alt="Cnel banner" />
         </Link>
@@ -24,6 +25,7 @@ export function SearchBanner() {
   if (provider === "eeasa") {
     return (
       <div className="p-4 border-b">
+        <h1 className="sr-only">{provider}</h1>
         <Link href="/eeasa" className={classNames}>
           <Image src="/banner-eaasa.png" fill alt="Eeasa banner" />
         </Link>
@@ -33,6 +35,7 @@ export function SearchBanner() {
 
   return (
     <div className="p-4 border-b">
+      <h1 className="sr-only">{provider}</h1>
       <div className={classNames} />
     </div>
   );

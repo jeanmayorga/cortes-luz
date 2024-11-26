@@ -13,7 +13,9 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "Consulta los cortes del servicio eléctrico",
   description:
-    "Sistema de consulta de programación de suspensión de servicio eléctrico",
+    "Consulta fácilmente la programación de suspensión del servicio eléctrico en tu área. Obtén información actualizada, fechas y horarios para estar preparado. ¡Accede ahora y planifica mejor tus actividades!",
+  keywords:
+    "Programación de suspensión eléctrica, Consulta de servicio eléctrico, Cortes de energía programados, Suspensión de electricidad, Horarios de cortes de luz, Fechas de suspensión de servicio eléctrico, Consulta de programación eléctrica, Cortes programados de luz, Información sobre cortes eléctricos, Sistema de consulta eléctrica, Servicio eléctrico en mi área, Programación de interrupción eléctrica, Planificación de cortes de luz, Fechas y horarios de cortes de electricidad, Consulta en línea de cortes eléctricos, Suspensión del servicio energético, Cortes eléctricos programados por región, Consulta de apagones, Avisos de cortes eléctricos, Interrupciones eléctricas planificadas, ¿Cuándo se suspenderá el servicio eléctrico?, Cortes programados de electricidad hoy, Cómo consultar cortes de luz, Fechas de interrupciones eléctricas en mi zona, Planificación de cortes de energía",
   robots: "index, follow",
   openGraph: {
     images: [

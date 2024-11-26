@@ -107,7 +107,7 @@ export function SearchFormByLocations() {
           <div role="group">
             {options.map((option, idx) => (
               <div
-                id={`${option.id}-${idx}`}
+                key={option.id}
                 className={cn(
                   "text-sm text-gray-600 px-4 py-3 flex items-start transition-all cursor-pointer",
                   selectedOptionIdx == idx && "bg-gray-100 text-gray-90"

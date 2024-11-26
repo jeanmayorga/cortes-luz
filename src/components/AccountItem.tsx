@@ -6,7 +6,7 @@ import { ShareButton } from "./ShareButton";
 import { Calendar } from "lucide-react";
 import { useRecentSearches } from "@/hooks/useRecentSearches";
 import { useEffect } from "react";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { cn } from "@/lib/utils";
@@ -14,33 +14,25 @@ import { Badge } from "./ui/badge";
 
 interface Props {
   account: Account;
-  provider: string;
 }
-export function AccountItem({ account, provider }: Props) {
-  const searchParams = useSearchParams();
+export function AccountItem({ account }: Props) {
   const params = useParams();
+  const provider = params.slug?.[0];
+  const criteria = params.slug?.[1] || "cc";
+  const code = params.slug?.[2];
+
   const { addRecentSearch } = useRecentSearches();
 
-  const uuid = params.uuid as string;
-  const criteria = searchParams.get("criteria") || "CUENTA_CONTRATO";
-  const code = searchParams.get("code") || "";
-
   useEffect(() => {
-    if (uuid) {
-      addRecentSearch({
-        provider,
-        uuid,
-        address: account.address,
-      });
-    } else if (account.address && criteria && code) {
+    if (provider && criteria && code && account.address) {
       addRecentSearch({
         criteria,
-        code,
         provider,
+        code,
         address: account.address,
       });
     }
-  }, [uuid, provider, criteria, code, account.address, addRecentSearch]);
+  }, [provider, criteria, code, account.address, addRecentSearch]);
 
   if (!account) return null;
 
@@ -55,14 +47,12 @@ export function AccountItem({ account, provider }: Props) {
     lastPowercut?.registeredAt || new Date().toISOString();
 
   return (
-    <div key={account.account} className="px-4 pt-0 md:pt-4 text-sm pb-4">
+    <div
+      key={account.account}
+      className="px-4 pt-0 md:pt-4 text-sm pb-4 border-b last-of-type:border-0"
+    >
       <div className="md:flex md:justify-between md:items-center md:flex-row-reverse mb-4">
-        <ShareButton
-          className="w-full md:w-auto mb-4 md:mb-0"
-          provider={provider}
-          code={code}
-          criteria={criteria}
-        />
+        <ShareButton />
         <div>
           <div className="text-lg leading-none">{account.address}</div>
           <div className="text-sm text-gray-500">
@@ -89,17 +79,33 @@ export function AccountItem({ account, provider }: Props) {
                 today && "font-bold"
               )}
             >
-              <Calendar className="w-4 h-4 mr-1" />
-              {date}{" "}
-              {today && (
-                <Badge variant="default" className="ml-2 bg-black">
-                  Hoy
+              {today ? (
+                <Badge
+                  variant="default"
+                  className={cn(
+                    provider === "eeasa" && "bg-[#20305f] hover:bg-[#20305f]",
+                    provider === "cnel" && "bg-[#32276c] hover:bg-[#32276c]"
+                  )}
+                >
+                  <Calendar className="w-4 h-4 mr-1" /> {date}
                 </Badge>
+              ) : (
+                <>
+                  <Calendar className="w-4 h-4 mr-1" />
+                  {date}
+                </>
               )}
             </div>
             <div className={cn("ml-5", today && "font-bold")}>
               {hours.map((hour) => (
-                <div className="flex" key={hour.date}>
+                <div
+                  className={cn(
+                    "flex",
+                    today && provider === "eeasa" && "text-[#20305f]",
+                    today && provider === "cnel" && "text-[#32276c]"
+                  )}
+                  key={hour.date}
+                >
                   <div className="w-16">de {hour.startTime}</div>
                   <div>a</div>
                   <div className="ml-2">{hour.endTime}</div>

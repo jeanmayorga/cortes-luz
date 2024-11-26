@@ -1,13 +1,12 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { Calendar } from "lucide-react";
 
-export default function Loading() {
+export function AccountItemSkeleton() {
   return (
     <div className="p-4 text-sm">
       <div className="flex justify-between items-center  mb-4">
         <div>
           <Skeleton className="w-[160px] h-[16px] rounded-full mb-[7px]" />
-
           <Skeleton className="w-[400px] h-[12px] rounded-full mb-[3px]" />
         </div>
       </div>

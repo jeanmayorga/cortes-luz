@@ -1,10 +1,7 @@
-export interface Powercut {
-  seed: string;
-  date: string;
-  dateString: string;
-  startTime: string;
-  endTime: string;
-  registeredAt: string;
+export interface GetAccountOptions {
+  provider: string;
+  criteria: string;
+  code: string;
 }
 
 export interface Account {
@@ -15,6 +12,15 @@ export interface Account {
   locations: string;
   registeredAt: string;
   powercuts: Powercut[];
+}
+
+export interface Powercut {
+  seed: string;
+  date: string;
+  dateString: string;
+  startTime: string;
+  endTime: string;
+  registeredAt: string;
 }
 
 declare global {

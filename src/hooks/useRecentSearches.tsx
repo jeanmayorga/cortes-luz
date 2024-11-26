@@ -2,7 +2,6 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
 export interface RecentSearchDTO {
-  uuid?: string;
   criteria?: string;
   code?: string;
   provider: string;
@@ -11,7 +10,6 @@ export interface RecentSearchDTO {
 
 export interface RecentSearch {
   id: string;
-  uuid?: string;
   criteria?: string;
   code?: string;
   provider: string;
@@ -39,7 +37,6 @@ export const useRecentSearches = create<State>()(
           createdAt,
         };
         const recentSearchExists = lastRecentSearches.find((rs) => {
-          if (rs.uuid && rs.uuid === newRecentSearch.uuid) return rs;
           if (rs.code && rs.criteria && rs.provider) {
             if (
               rs.code === newRecentSearch.code &&

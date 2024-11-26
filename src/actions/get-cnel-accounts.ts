@@ -1,8 +1,14 @@
 "use server";
 
-import { Account } from "../types";
+import { Account } from "@/app/types";
 
-export type Criteria = "CUEN" | "CUENTA_CONTRATO" | "IDENTIFICACION";
+export type CNELCriteria = "CUEN" | "CUENTA_CONTRATO" | "IDENTIFICACION";
+
+const criteriaMap: Record<string, CNELCriteria> = {
+  ci: "IDENTIFICACION",
+  cc: "CUENTA_CONTRATO",
+  cu: "CUEN",
+};
 
 export interface CNELResponse {
   resp: "ERROR" | "OK";
@@ -28,15 +34,9 @@ export interface CNELResponse {
   }[];
 }
 
-interface Options {
-  criteria: Criteria | null;
-  code: string | null;
-}
-
 const cnelApi = `https://api.cnelep.gob.ec/servicios-linea/v1/notificaciones`;
 
 export async function getCnelLocations(seed: string) {
-  console.log(`request to api CNEL -> ${seed}`);
   const request = await fetch(`${cnelApi}/sector/${seed}`, {
     cache: "force-cache",
     next: {
@@ -48,17 +48,22 @@ export async function getCnelLocations(seed: string) {
   return response;
 }
 
+interface Options {
+  criteria: string | null | undefined;
+  code: string | null | undefined;
+}
 export async function getCnelAccounts({ criteria, code }: Options) {
   if (!criteria || !code) return [];
 
-  console.log(`request to api CNEL -> ${code}/${criteria}`);
-
-  const request = await fetch(`${cnelApi}/consultar/${code}/${criteria}`, {
-    cache: "force-cache",
-    next: {
-      revalidate: 60,
-    },
-  });
+  const request = await fetch(
+    `${cnelApi}/consultar/${code}/${criteriaMap[criteria]}`,
+    {
+      cache: "force-cache",
+      next: {
+        revalidate: 60,
+      },
+    }
+  );
   const response = (await request.json()) as CNELResponse;
 
   if (response.notificaciones === null) return [];
@@ -88,7 +93,9 @@ export async function getCnelAccounts({ criteria, code }: Options) {
     });
   }
 
-  console.log(`request to api CNEL -> ${mapped.length} accounts found.`);
+  console.log(
+    `request to api CNEL -> ${criteria}/${code} -> ${mapped.length}a ${mapped[0].powercuts.length}p`
+  );
 
   return mapped;
 }

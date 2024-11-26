@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
+import { SearchRecents } from "@/components/SearchRecents";
 
 export default async function Home() {
   return (
-    <div className="flex items-center justify-center">
-      <div>
+    <div className="md:w-[640px] w-full bg-white mx-auto border border-gray-200 shadow-sm md:rounded-3xl overflow-hidden p-2">
+      <div className="px-4 pt-4 pb-4 border-b">
         <div className="font-semibold mb-4">
           Tenemos estas opciones disponibles:
         </div>
@@ -19,6 +20,7 @@ export default async function Home() {
           </Link>
         </div>
       </div>
+      <SearchRecents />
     </div>
   );
 }

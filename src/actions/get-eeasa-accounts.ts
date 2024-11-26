@@ -1,10 +1,8 @@
 "use server";
 
+import { Account } from "@/app/types";
 import { format, toZonedTime } from "date-fns-tz";
-import { Account } from "../types";
 import { es } from "date-fns/locale";
-
-export type Criteria = "CUEN" | "CUENTA_CONTRATO" | "IDENTIFICACION";
 
 interface EEASAItem {
   canton: string;
@@ -25,8 +23,8 @@ interface EEASAItem {
 }
 
 interface Options {
-  criteria: Criteria | null;
-  code: string | null;
+  criteria: string | null | undefined;
+  code: string | null | undefined;
 }
 
 const eeasaApi = `https://servicios.eeasa.com.ec/mieeasa/servicios/sap/consultaSuspension`;
@@ -34,9 +32,7 @@ const eeasaApi = `https://servicios.eeasa.com.ec/mieeasa/servicios/sap/consultaS
 export async function getEeasaAccounts({ criteria, code }: Options) {
   if (!criteria || !code) return [];
 
-  console.log(`request to api EEASA -> ${code}/${criteria}`);
-
-  const type = criteria === "IDENTIFICACION" ? "I" : "C";
+  const type = criteria === "ci" ? "I" : "C";
   const url = `${eeasaApi}/?parametro=${code}&tipo=${type}`;
   const request = await fetch(url, {
     headers: {
@@ -84,7 +80,9 @@ export async function getEeasaAccounts({ criteria, code }: Options) {
     },
   ];
 
-  console.log(`request to api EEASA -> ${mapped.length} accounts found.`);
+  console.log(
+    `request to api EEASA -> ${criteria}/${code} -> ${mapped.length}a ${mapped[0].powercuts.length}p`
+  );
 
   return mapped;
 }

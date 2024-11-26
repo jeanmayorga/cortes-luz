@@ -30,7 +30,7 @@ function SearchRecent({ recentSearch }: Props) {
   if (!criteria || !recentSearch.code) return null;
 
   return (
-    <div className="relative min-w-44 rounded-xl bg-gray-50 border border-gray-100 hover:bg-slate-100 transition-all cursor-pointer select-none">
+    <div className="relative min-w-44 rounded-xl bg-gray-50/30 border border-gray-100 hover:bg-slate-100 transition-all cursor-pointer select-none">
       <Link
         href={`/${recentSearch.provider}/${criteria}/${recentSearch.code}`}
         className="p-3 block"
@@ -55,6 +55,7 @@ function SearchRecent({ recentSearch }: Props) {
           e.preventDefault();
           deleteRecentSearch(recentSearch.id);
         }}
+        aria-label="eliminar"
       >
         <X className="w-4 h-4" />
       </Button>

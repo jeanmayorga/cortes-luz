@@ -111,6 +111,7 @@ export function SearchFormByLocations() {
               setSearchInput("");
             }}
             className="shrink-0 rounded-full"
+            aria-label="Cerrar"
           >
             <X />
           </Button>

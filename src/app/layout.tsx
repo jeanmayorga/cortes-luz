@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Toaster } from "react-hot-toast";
 
 import "./globals.css";
@@ -34,13 +34,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="es">
       <body className={poppins.className}>
         <Toaster containerClassName=" text-sm" />
         <div className="md:pt-24 py-8 px-0">{children}</div>
       </body>
       <GoogleAnalytics gaId="AW-728848373" />
-      <GoogleTagManager gtmId="AW-728848373" />
+      {/* <GoogleTagManager gtmId="AW-728848373" /> */}
     </html>
   );
 }

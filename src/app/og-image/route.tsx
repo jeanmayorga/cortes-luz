@@ -2,13 +2,6 @@ import { ImageResponse } from "next/og";
 import fs from "fs";
 import path from "path";
 
-export const alt = "Cortes de Energia";
-export const size = {
-  width: 630,
-  height: 630,
-};
-export const contentType = "image/png";
-
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const title = searchParams.get("title") || "Default Title";
@@ -54,7 +47,8 @@ export async function GET(request: Request) {
       </div>
     ),
     {
-      ...size,
+      width: 630,
+      height: 630,
       fonts: [
         {
           name: "Montserrat",

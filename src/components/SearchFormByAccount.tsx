@@ -22,7 +22,7 @@ const FormSchema = z.object({
   code: z.string().min(2),
 });
 
-export function SearchForm() {
+export function SearchFormByAccount() {
   const router = useRouter();
   const params = useParams();
   const provider = params.slug?.[0];
@@ -46,7 +46,7 @@ export function SearchForm() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="p-4 grid grid-cols-12 gap-2"
+          className="grid grid-cols-12 gap-2"
         >
           <div className="md:col-span-4 col-span-6">
             <FormField

@@ -38,13 +38,14 @@ export function AccountItem({ account }: Props) {
   useEffect(() => {
     if (account.locations && provider && criteria && code) {
       saveLocations({
+        name: account.address,
         locations: account.locations,
         provider,
         criteria,
         code,
       });
     }
-  }, [account.locations, provider, criteria, code]);
+  }, []);
 
   if (!account) return null;
 

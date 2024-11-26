@@ -4,8 +4,8 @@ import { SearchRecents } from "@/components/SearchRecents";
 
 export default async function Home() {
   return (
-    <div className="md:w-[640px] w-full bg-white mx-auto border border-gray-200 shadow-sm md:rounded-3xl overflow-hidden p-2">
-      <div className="px-4 pt-4 pb-4 border-b">
+    <div className="md:w-[640px] w-full bg-white mx-auto border border-gray-200 shadow-sm md:rounded-3xl overflow-hidden p-2 ">
+      <div className="px-4 pt-4 pb-4 last-of-type:border-b-0 border-b">
         <div className="font-semibold mb-4">
           Tenemos estas opciones disponibles:
         </div>

@@ -20,7 +20,7 @@ export default async function Home() {
           </Link>
         </div>
       </div>
-      <SearchRecents />
+      <SearchRecents layout="grid" />
     </div>
   );
 }

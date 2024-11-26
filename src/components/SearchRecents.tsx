@@ -8,6 +8,7 @@ import { es } from "date-fns/locale";
 import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { SearchRecentsSkeleton } from "./SearchRecentsSkeleton";
+import { cn } from "@/lib/utils";
 
 interface Props {
   recentSearch: RecentSearch;
@@ -61,7 +62,10 @@ function SearchRecent({ recentSearch }: Props) {
   );
 }
 
-export function SearchRecents() {
+interface SearchResultsProps {
+  layout?: "grid" | "flex";
+}
+export function SearchRecents({ layout = "flex" }: SearchResultsProps) {
   const [isLoading, setIsLoading] = useState(true);
   const { recentSearches, deleteAllRecentSearches } = useRecentSearches();
 
@@ -75,7 +79,7 @@ export function SearchRecents() {
 
   return (
     <div className="p-4 last-of-type:border-b-0 border-b">
-      <div className="flex justify-between items-center mb-2">
+      <div className={cn("flex justify-between items-center", "mb-2")}>
         <div className="text-sm">Búsquedas recientes</div>
         <Button
           variant="link"
@@ -86,7 +90,13 @@ export function SearchRecents() {
           Eliminar
         </Button>
       </div>
-      <div className="flex gap-4 overflow-auto">
+      <div
+        className={cn(
+          layout === "flex" && "flex",
+          layout === "grid" && "grid grid-cols-3",
+          "gap-4 overflow-auto"
+        )}
+      >
         {recentSearches.map((recentSearch) => (
           <SearchRecent key={recentSearch.id} recentSearch={recentSearch} />
         ))}

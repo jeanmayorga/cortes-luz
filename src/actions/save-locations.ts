@@ -36,14 +36,15 @@ export async function saveLocations({
   code,
 }: LocationDTO) {
   const hash = createHash(name, locations);
-  await supabase
+  const { data } = await supabase
     .from("locations-powercuts")
-    .upsert(
-      { name, locations, provider, criteria, code, hash },
-      {
-        ignoreDuplicates: false,
-        onConflict: "hash",
-      }
-    )
-    .select("*");
+    .select("*")
+    .eq("hash", hash)
+    .single();
+
+  if (!data) {
+    await supabase
+      .from("locations-powercuts")
+      .insert({ name, locations, provider, criteria, code, hash });
+  }
 }

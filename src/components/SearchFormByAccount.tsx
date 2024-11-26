@@ -46,7 +46,7 @@ export function SearchFormByAccount() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="grid grid-cols-12 gap-2"
+          className="grid grid-cols-12 gap-4"
         >
           <div className="md:col-span-4 col-span-6">
             <FormField
@@ -89,6 +89,7 @@ export function SearchFormByAccount() {
           </div>
           <Button
             type="submit"
+            aria-label="buscar"
             className={cn(
               "md:col-span-2 col-span-12 rounded-xl",
               provider === "eeasa" && "bg-[#20305f] hover:bg-[#20305f]",

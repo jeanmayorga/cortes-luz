@@ -14,7 +14,7 @@ export function SearchTabs() {
       defaultValue="searchFormByAccount"
       className="w-full p-4 last-of-type:border-b-0 border-b"
     >
-      <TabsList className="grid w-full grid-cols-2 rounded-xl mb-2">
+      <TabsList className="grid w-full grid-cols-2 rounded-xl mb-4 p-1">
         <TabsTrigger
           className="rounded-xl"
           value="searchFormByAccount"

@@ -16,7 +16,13 @@ export function SearchBanner() {
       <div className="p-4 border-b">
         <h1 className="sr-only">{provider}</h1>
         <Link href="/cnel" className={classNames}>
-          <Image src="/banner.jpg" fill alt="Cnel banner" />
+          <Image
+            src="/banner.jpg"
+            alt="Cnel banner"
+            width="400"
+            height="150"
+            className="w-full h-full"
+          />
         </Link>
       </div>
     );
@@ -27,7 +33,13 @@ export function SearchBanner() {
       <div className="p-4 border-b">
         <h1 className="sr-only">{provider}</h1>
         <Link href="/eeasa" className={classNames}>
-          <Image src="/banner-eaasa.png" fill alt="Eeasa banner" />
+          <Image
+            src="/banner-eaasa.png"
+            alt="Eeasa banner"
+            width="400"
+            height="150"
+            className="w-full h-full"
+          />
         </Link>
       </div>
     );

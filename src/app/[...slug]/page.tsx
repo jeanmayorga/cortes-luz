@@ -1,5 +1,5 @@
 import { Accounts } from "@/components/Accounts";
-import { getAccounts } from "../config";
+import { getAccounts, providers } from "../config";
 import { Metadata } from "next";
 
 interface Params {
@@ -75,6 +75,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description:
       "Consulta fácilmente la programación de suspensión del servicio eléctrico en tu área. Obtén información actualizada, fechas y horarios para estar preparado. ¡Accede ahora y planifica mejor tus actividades!",
   };
+}
+
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+  return providers.map((provider) => ({
+    slug: [provider],
+  }));
 }
 
 export default async function Page({ params }: Props) {

@@ -1,16 +1,15 @@
+"use client";
+
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
-import { SearchRecents } from "@/components/SearchRecents";
 
 export default function Home() {
   return (
     <div className="md:w-[640px] w-full bg-white mx-auto border border-gray-200 shadow-sm md:rounded-3xl overflow-hidden p-2 ">
-      <h1 className="px-4 pt-4 text-3xl font-bold">
-        Cortes del servicio de luz
-      </h1>
       <div className="px-4 pt-4 pb-4 last-of-type:border-b-0 border-b">
         <div className="font-semibold mb-4">
-          Tenemos estas opciones disponibles:
+          No encontramos la pagina que buscas, pero tenemos estas opciones
+          disponibles:
         </div>
         <div>
           <Link href="/cnel" className="flex items-center mb-4 underline">
@@ -23,7 +22,6 @@ export default function Home() {
           </Link>
         </div>
       </div>
-      <SearchRecents layout="grid" />
     </div>
   );
 }

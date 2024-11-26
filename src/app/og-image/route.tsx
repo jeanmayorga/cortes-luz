@@ -21,7 +21,7 @@ export async function GET(request: Request) {
         }}
       >
         <img
-          src="https://www.cnelep.gob.ec/wp-content/uploads/2024/08/cortes_energia_compartir.jpg"
+          src="https://www.cortesdeluz.com/shareable.jpg"
           alt="Cortes de energía"
           style={{
             height: "100%",

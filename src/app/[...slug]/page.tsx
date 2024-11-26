@@ -18,12 +18,34 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const account = accounts[0];
 
   if (account) {
+    const title = account.address.replace("...", "");
+
+    const images = [
+      {
+        url: `https://www.cortesdeluz.com/og-image?title=${title}`,
+        width: 630,
+        height: 630,
+        alt: title,
+      },
+    ];
+
     return {
       title: `${provider.toUpperCase()} | ${account.address.replace(
         "...",
         ""
       )} | Cortes del servicio eléctrico`,
       description: account.locations,
+      authors: [
+        {
+          name: "Jean Paul Mayorga",
+          url: "https://jeanmayorga.com",
+        },
+      ],
+      robots: "index, follow",
+      openGraph: {
+        images,
+        type: "website",
+      },
     };
   }
 

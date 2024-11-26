@@ -94,7 +94,7 @@ export function SearchFormByLocations() {
       )}
 
       {open && (
-        <div className="absolute w-full bg-white border rounded-xl mt-1 z-10 overflow-hidden">
+        <div className="absolute w-full bg-white border rounded-xl mt-1 z-10 overflow-hidden max-h-[500px] overflow-y-auto">
           <div className="p-4">
             <div className="w-full text-sm text-gray-500 font-semibold">
               Resultados:

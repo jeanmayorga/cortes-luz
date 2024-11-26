@@ -34,12 +34,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         ""
       )} | Cortes del servicio eléctrico`,
       description: account.locations,
-      authors: [
-        {
-          name: "Jean Paul Mayorga",
-          url: "https://jeanmayorga.com",
-        },
-      ],
       robots: "index, follow",
       openGraph: {
         images,
@@ -61,12 +55,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `${provider.toUpperCase()} | Consulta los cortes del servicio eléctrico.`,
       description:
         "Sistema de consulta de programación de suspensión de servicio eléctrico",
-      authors: [
-        {
-          name: "Jean Paul Mayorga",
-          url: "https://jeanmayorga.com",
-        },
-      ],
       robots: "index, follow",
       openGraph: {
         images,

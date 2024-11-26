@@ -18,7 +18,8 @@ export async function getLocations({ query }: Options) {
   const { data, error } = await supabase
     .from("locations-powercuts")
     .select("*")
-    .ilike("hash", `%${query}%`);
+    .ilike("hash", `%${query}%`)
+    .limit(4);
 
   if (error || !data) return [];
 

@@ -15,12 +15,6 @@ export const metadata: Metadata = {
   description:
     "Sistema de consulta de programación de suspensión de servicio eléctrico",
   robots: "index, follow",
-  authors: [
-    {
-      name: "Jean Paul Mayorga",
-      url: "https://jeanmayorga.com",
-    },
-  ],
   openGraph: {
     images: [
       {

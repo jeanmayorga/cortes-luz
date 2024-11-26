@@ -5,10 +5,10 @@ import { Loader2, MapPin, SearchIcon, X } from "lucide-react";
 import { Location } from "@/actions/get-locations";
 import { Input } from "./ui/input";
 import { getLocations } from "@/actions/get-locations";
-import { debounce } from "lodash";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import { useDebouncedCallback } from "use-debounce";
 
 export function SearchFormByLocations() {
   const router = useRouter();
@@ -19,7 +19,8 @@ export function SearchFormByLocations() {
   const [selectedOptionIdx, setSelectedOptionIdx] = useState<number>(0);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const searchLocations = debounce(async (query) => {
+  const searchLocations = useDebouncedCallback(async (query: string) => {
+    setSearchInput(query);
     setIsLoading(true);
     const locations = await getLocations({ query });
     setOptions(locations);
@@ -29,9 +30,7 @@ export function SearchFormByLocations() {
 
   const onSelectOption = (option: Location) => {
     router.push(`/${option.provider}/${option.criteria}/${option.code}`);
-    setOptions([]);
-    setSearchInput("");
-    setOpen(false);
+    cleanUp();
   };
 
   const onSelectOptionHover = (optionIdx: number) => {
@@ -47,6 +46,32 @@ export function SearchFormByLocations() {
     }
   };
 
+  const cleanUp = () => {
+    setSelectedOptionIdx(0);
+    setOptions([]);
+    setSearchInput("");
+    setOpen(false);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setSelectedOptionIdx((prev) =>
+        prev < options.length - 1 ? prev + 1 : prev
+      );
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setSelectedOptionIdx((prev) => (prev > 0 ? prev - 1 : 0));
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      if (options[selectedOptionIdx]) {
+        onSelectOption(options[selectedOptionIdx]);
+      }
+    } else if (e.key === "Escape") {
+      cleanUp();
+    }
+  };
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -57,11 +82,11 @@ export function SearchFormByLocations() {
   return (
     <div className="relative" ref={wrapperRef}>
       <Input
+        name="locations"
+        autoFocus
         className="w-full rounded-xl"
         placeholder="En donde donde vives..."
-        value={searchInput}
         onChange={(e) => {
-          setSearchInput(e.target.value);
           searchLocations(e.target.value);
         }}
         onClick={() => {
@@ -69,6 +94,7 @@ export function SearchFormByLocations() {
             setOpen(true);
           }
         }}
+        onKeyDown={handleKeyDown}
       />
       {isLoading ? (
         <div className="absolute right-4 top-1/2 -translate-y-1/2">
@@ -94,17 +120,24 @@ export function SearchFormByLocations() {
       )}
 
       {open && (
-        <div className="absolute w-full bg-white border rounded-xl mt-1 z-10 overflow-hidden max-h-[500px] overflow-y-auto">
+        <div className="absolute w-full bg-white border rounded-xl mt-1 z-10 overflow-hidden">
           <div className="p-4">
             <div className="w-full text-sm text-gray-500 font-semibold">
               Resultados:
             </div>
             <div className="w-full text-xs text-gray-400">
-              No todos los lugares estan disponibles, si no tiene resultado
-              busque por cuenta o cédula.
+              No todos los lugares estan disponibles,{" "}
+              <span className="text-gray-900 font-bold">
+                si no tiene resultado busque por cuenta o cédula.
+              </span>
             </div>
           </div>
-          <div role="group">
+          {searchInput.length > 2 && options.length === 0 && (
+            <div className="px-4 pb-4 text-gray-600 leading-none text-sm">
+              No encontramos lugares.
+            </div>
+          )}
+          <div role="listbox">
             {options.map((option, idx) => (
               <div
                 key={option.id}
@@ -113,6 +146,7 @@ export function SearchFormByLocations() {
                   selectedOptionIdx == idx && "bg-gray-100 text-gray-90"
                 )}
                 role="option"
+                aria-selected={selectedOptionIdx == idx}
                 onClick={() => onSelectOption(option)}
                 onMouseEnter={() => onSelectOptionHover(idx)}
               >

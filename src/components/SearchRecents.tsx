@@ -26,6 +26,8 @@ function SearchRecent({ recentSearch }: Props) {
   }
   const criteria = getCriteria();
 
+  if (!criteria || !recentSearch.code) return null;
+
   return (
     <div className="relative min-w-44 rounded-xl bg-gray-50 border border-gray-100 hover:bg-slate-100 transition-all cursor-pointer select-none">
       <Link

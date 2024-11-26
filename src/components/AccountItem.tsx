@@ -11,6 +11,7 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { cn } from "@/lib/utils";
 import { Badge } from "./ui/badge";
+import { saveLocations } from "@/actions/save-locations";
 
 interface Props {
   account: Account;
@@ -34,6 +35,29 @@ export function AccountItem({ account }: Props) {
     }
   }, [provider, criteria, code, account.address, addRecentSearch]);
 
+  useEffect(() => {
+    function save() {
+      if (account.address && provider && criteria && code && account.seed) {
+        saveLocations({
+          name: account.address,
+          locations: account.locations,
+          provider,
+          criteria,
+          code,
+          seed: provider === "eeasa" ? account.address : account.seed,
+        });
+      }
+    }
+    save();
+  }, [
+    account.address,
+    account.locations,
+    provider,
+    criteria,
+    code,
+    account.seed,
+  ]);
+
   if (!account) return null;
 
   const powercutsByDate = lodash.groupBy(
@@ -54,7 +78,9 @@ export function AccountItem({ account }: Props) {
       <div className="md:flex md:justify-between md:items-center md:flex-row-reverse mb-4">
         <ShareButton />
         <div>
-          <div className="text-lg leading-none">{account.address}</div>
+          <div className="text-lg leading-none">
+            {account.address} ({account.seed})
+          </div>
           <div className="text-sm text-gray-500">
             Actualizado el{" "}
             {format(lastPowercutRegisteredAt, "EEEE dd/MM/yyyy, hh:mm:ss a", {

@@ -54,7 +54,7 @@ export async function getEeasaAccounts({ criteria, code }: Options) {
       account: response[0].cuen,
       contractAccount: response[0].cuentaContrato,
       address: response[0].nomAlim,
-      locations: `${response[0].direccion} ${response[0].nomAlim}`,
+      locations: `${response[0].direccion} - ${response[0].nomAlim}`,
       registeredAt: new Date().toISOString(),
       powercuts: response.map((powercut) => {
         const start = toZonedTime(

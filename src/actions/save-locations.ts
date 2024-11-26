@@ -12,15 +12,11 @@ export async function saveLocations({
   criteria,
   code,
 }: Options) {
-  const { error } = await supabase.from("locations-powercuts").upsert(
+  await supabase.from("locations-powercuts").upsert(
     { locations, provider, criteria, code },
     {
       ignoreDuplicates: false,
       onConflict: "locations",
     }
   );
-
-  if (error) {
-    throw new Error(error.details);
-  }
 }

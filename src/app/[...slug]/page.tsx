@@ -49,6 +49,33 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  if (provider) {
+    const images = [
+      {
+        url: `https://www.cortesdeluz.com/og-image?title=${provider}`,
+        width: 630,
+        height: 630,
+        alt: provider,
+      },
+    ];
+    return {
+      title: `${provider.toUpperCase()} | Consulta los cortes del servicio eléctrico.`,
+      description:
+        "Sistema de consulta de programación de suspensión de servicio eléctrico",
+      authors: [
+        {
+          name: "Jean Paul Mayorga",
+          url: "https://jeanmayorga.com",
+        },
+      ],
+      robots: "index, follow",
+      openGraph: {
+        images,
+        type: "website",
+      },
+    };
+  }
+
   return {
     title: "Consulta los cortes del servicio eléctrico.",
     description:

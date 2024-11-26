@@ -1,3 +1,4 @@
+"use server";
 import { supabase } from "@/lib/supabase";
 
 export interface Location {
@@ -20,6 +21,8 @@ export async function getLocations({ query }: Options) {
     .ilike("hash", `%${query}%`);
 
   if (error || !data) return [];
+
+  console.log(`getLocations -> ${query} -> ${data.length}`);
 
   return data as unknown as Location[];
 }

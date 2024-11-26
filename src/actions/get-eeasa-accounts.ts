@@ -81,7 +81,7 @@ export async function getEeasaAccounts({ criteria, code }: Options) {
   ];
 
   console.log(
-    `request to api EEASA -> ${criteria}/${code} -> ${mapped.length}a ${mapped[0].powercuts.length}p`
+    `request to api eeasa/${criteria}/${code} -> ${mapped.length}a ${mapped[0].powercuts.length}p`
   );
 
   return mapped;

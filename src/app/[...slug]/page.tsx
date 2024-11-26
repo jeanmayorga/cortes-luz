@@ -14,7 +14,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const [provider, criteria, code] = slug;
 
   const accounts = await getAccounts({ provider, criteria, code });
-
   const account = accounts[0];
 
   if (account) {

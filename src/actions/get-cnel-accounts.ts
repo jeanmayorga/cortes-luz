@@ -94,7 +94,7 @@ export async function getCnelAccounts({ criteria, code }: Options) {
   }
 
   console.log(
-    `request to api CNEL -> ${criteria}/${code} -> ${mapped.length}a ${mapped[0].powercuts.length}p`
+    `request to api cnel/${criteria}/${code} -> ${mapped.length}a ${mapped[0].powercuts.length}p`
   );
 
   return mapped;

@@ -36,27 +36,15 @@ export function AccountItem({ account }: Props) {
   }, [provider, criteria, code, account.address, addRecentSearch]);
 
   useEffect(() => {
-    function save() {
-      if (account.address && provider && criteria && code && account.seed) {
-        saveLocations({
-          name: account.address,
-          locations: account.locations,
-          provider,
-          criteria,
-          code,
-          seed: provider === "eeasa" ? account.address : account.seed,
-        });
-      }
+    if (account.locations && provider && criteria && code) {
+      saveLocations({
+        locations: account.locations,
+        provider,
+        criteria,
+        code,
+      });
     }
-    save();
-  }, [
-    account.address,
-    account.locations,
-    provider,
-    criteria,
-    code,
-    account.seed,
-  ]);
+  }, [account.locations, provider, criteria, code, account.seed]);
 
   if (!account) return null;
 
